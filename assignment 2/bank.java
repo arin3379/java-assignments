@@ -532,6 +532,8 @@ class Main {
                             case 6: {
                                 int ch3 = 0;
                                 while (ch3 != 3) {
+
+
                                     System.out.println("1. Show all transactions");
                                     System.out.println("2. search transaction by transaction id");
                                     System.out.println("3. Back");
@@ -546,4 +548,94 @@ class Main {
                                         case 1: {
                                              System.out.println("Transaction ID  " + "Type      " + "Amount" + "  Timestamp");
                                 for (int j = 0; j < transactioncount; j++) {
-                                   
+                                    if (transaction[j].account_from == account[i].accno || transaction[j].account_to == account[i].accno) {
+                                        transaction[j].show(account[i].getaccno());
+                                    }
+                                }
+                                break;
+                                        }
+                                        case 2: {
+                                System.out.print("Enter the transaction ID to search for: ");
+                                int searchId;
+                                try {
+                                    searchId = Integer.parseInt(br.readLine());
+                                } catch (NumberFormatException e) {
+                                    System.out.println("Invalid input! Please enter a valid integer.");
+                                    searchId = 0;
+                                }
+                                boolean found = false;
+                                for (int j = 0; j < transactioncount; j++) {
+                                    if (transaction[j].getTransactionID() == searchId) {
+                                        transaction[j].showTransaction();
+                                        found = true;
+                                        break;
+                                    }
+                                }
+                                if (!found) {
+                                    System.out.println("Transaction with ID " + searchId + " not found.");
+                                }
+                                break;
+                            }
+                            case 3: {
+                                System.out.println("Back");
+                                break;
+                            }
+                            default: {
+                                System.out.println("Invalid choice. Please enter a valid option.");
+                                break;
+                            }
+                            }
+                                }
+                                break;
+                            }
+                            case 7: {
+                                account[i].ChangePin();
+                                break;
+                            }
+                            case 8: {
+                                System.out.println("Logging out...");
+                                break;
+                            }
+
+
+                            default:
+                                System.out.println("Invalid choice. Please enter a valid option.");
+                        }
+                    }
+                    break;
+                }
+                case 2: {
+                    account[total] = new Bankaccount();
+                    account[total].makeaccount();
+                    System.out.println("Your bank account number is: " + account[total].getaccno() + ". Please login again to access your account.");
+                    total++;
+                    newUser = true;
+                    break;
+                }
+                case 3: {
+                    System.out.println("Exiting the system...");
+                    break;
+                }
+                default:
+                    System.out.println("Invalid choice. Please enter a valid option.");
+            }
+        }
+        System.out.println("Thank you for using our service.");
+        if (!newUser) {
+            if (i != -1)
+                System.out.println("See you soon " + account[i].getname() + " :)");
+            else
+                System.out.println("Are we that bad? You didn't even log in :(");
+        } else {
+            if (i != -1) {
+                System.out.println("Welcome to the family " + account[i].getname() + "! Account created successfully. See you soon :)");
+            } else {
+                System.out.println("Account created successfully! But you didn't even log in :(");
+            }
+        }
+    }
+}
+
+
+
+   
